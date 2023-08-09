@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Apply styles to the entire page */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login {
+  position: relative;
+  height: 100%;
+  background: url('bg.png') center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* Logo styles */
+.login_logo {
+  position: fixed;
+  left: 0;
+  width: 150px;
+  object-fit: contain;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+
+/* Gradient overlay */
+.login_gradient {
+  width: 100%;
+  z-index: 1;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* Content styles */
+.login_body {
+  position: absolute;
+  top: 20%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  left: 0;
+  right: 0;
+  animation: slideUpFadeIn 1.4s ease-in-out forwards;
+  opacity: 0;
+}
+
+.login_body h3 {
+  width: 60%;
+  font-weight: 500;
+}
+
+/* Animation keyframes */
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login h1 {
+  animation: fadeInUp 1s ease-in-out forwards;
+  opacity: 0;
+}
+
+.login h3 {
+  animation: fadeInUp 1s ease-in-out 0.5s forwards;
+  opacity: 0;
+}
+
+.login_button {
+  animation: fadeInUp 1s ease-in-out 1s forwards;
+  opacity: 0;
+}
+
+/* Animation keyframes */
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Existing styles */
+
+/* Additional styles */
+.login_button {
+  animation: fadeInUp 1s ease-in-out 1s forwards;
+  opacity: 0;
+  margin-top: 20px;
+}
+
+.join_us {
+  animation: fadeInUp 1s ease-in-out 1.5s forwards;
+  opacity: 0;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #ccc;
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+/* Existing responsive styles */
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login_logo {
+    width: 120px;
+    padding-left: 10px;
+  }
+
+  .login_body {
+    top: 30%;
+    padding: 10px;
+  }
+
+  .login_body h1 {
+    font-size: 24px;
+  }
+
+  .login_body h3 {
+    font-size: 14px;
+    width: 90%;
+  }
+}
