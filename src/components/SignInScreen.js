@@ -1,6 +1,6 @@
 import React,{useRef} from 'react'
 
-import "./SignIn.css"
+import "./styles/SignIn.css"
 const SignInScreen = () => {
 
 

@@ -15,10 +15,9 @@ const test = (req, res) => {
 
 const login = async (req, res) => {
   const db = req.db
-  const { name, email } = req.body
+  const { email } = req.body
   const collection = db.collection("users")
   const userPresent = await collection.findOne({ "email": email })
-
 
   if (!userPresent) {
     collection.insertOne(req.body)
@@ -40,4 +39,34 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { test, login }
+const checkLogin = (req, res) => {
+	const token = req.cookies.login;
+	// check if token exists
+	if (token) {
+		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
+			if (err) {
+				// console.log(err);
+				res.send("1");
+			}
+			else {
+				res.send("0");
+			}
+		})
+	}
+	else {
+		res.send("1");
+	}
+}
+
+const logout = (req, res) => {
+  const token = req.cookies.login;
+  try {
+    res.cookie('login', token, { httpOnly: true, maxAge: 1, SameSite: "none" })
+    res.status(200).json({ok: "true", message: "Logged out"})
+  }
+  catch (err) {
+    res.status(500).json({ok: "false", message: "Error logging out", error: err})
+  }
+}
+
+module.exports = { test, login, checkLogin, logout }
