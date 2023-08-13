@@ -25,3 +25,4 @@ yarn-error.log*
 
 /Products_100
 /Products_300
+*.ipynb
