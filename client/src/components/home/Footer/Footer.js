@@ -34,10 +34,10 @@ const Footer = () => {
           <FooterListTitle title=" More about SmartKart" />
           <div className="flex flex-col gap-6">
             <p className="text-base w-full xl:w-[80%]">
-            Discover a world of shopping at your fingertips. Explore endless options, from electronics to fashion, and experience the convenience of online commerce.
+              Discover a world of shopping at your fingertips. Explore endless options, from electronics to fashion, and experience the convenience of online commerce.
             </p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.54908328496!2d81.6024541742032!3d21.249722180455482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dde213f66723%3A0x21543965c50c43c7!2sNational%20Institute%20of%20Technology(NIT)%2C%20Raipur!5e0!3m2!1sen!2sin!4v1692066056877!5m2!1sen!2sin"
-             allowfullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              allowfullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
         <div>
@@ -84,7 +84,7 @@ const Footer = () => {
           <FooterListTitle title="Subscribe to our newsletter." />
           <div className="w-full">
             <p className="text-center mb-4">
-            Join us today and start shopping smarter!
+              Join us today and start shopping smarter!
             </p>
             {subscription ? (
               <motion.p
@@ -121,9 +121,8 @@ const Footer = () => {
             )}
 
             <Image
-              className={`w-[80%] lg:w-[60%] mx-auto ${
-                subscription ? "mt-2" : "mt-6"
-              }`}
+              className={`w-[80%] lg:w-[60%] mx-auto ${subscription ? "mt-2" : "mt-6"
+                }`}
               imgSrc={paymentCard}
             />
           </div>

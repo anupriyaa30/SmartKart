@@ -1,0 +1,4 @@
+{
+  "node_server": "http://localhost:5000",
+  "python_server": "http://localhost:5001"
+}

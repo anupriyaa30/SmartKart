@@ -38,7 +38,7 @@ def analyze_data():
     df = pd.DataFrame(collection_data)
 
     with open('product-search-model_70.pkl', 'rb') as file:
-      loaded_vectorizer, loaded_tfidf_matrix = pickle.load(file)
+        loaded_vectorizer, loaded_tfidf_matrix = pickle.load(file)
 
     preprocessed_query = preprocess(search_query)
     query_tfidf = loaded_vectorizer.transform([preprocessed_query])

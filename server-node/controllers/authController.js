@@ -49,15 +49,15 @@ const checkLogin = (req, res) => {
 		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
 			if (err) {
 				// console.log(err);
-				res.send("1");
+        res.status(500).json({ok: false, message: "Error while fetching the token", error: err})
 			}
 			else {
-				res.send("0");
+        res.status(200).json({ok: true, message: token})
 			}
 		})
 	}
 	else {
-		res.send("1");
+		res.status(500).json({ok: false, message: "Error while fetching the token"})
 	}
 }
 
