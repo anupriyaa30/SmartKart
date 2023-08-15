@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const like = async (req, res) => {
   const db = req.db
   const userId = res.user.data.id
@@ -89,7 +91,7 @@ const rate = async (req, res) => {
         total_rating += rating
         let avg_rating = total_rating / (no_of_ratings + 1)
         await collection.updateOne({ "id": product_id }, { $set: { "ratings": avg_rating, "no_of_ratings": no_of_ratings + 1 } })
-        collection2.insertOne({"product": product_id, "user": user_id, "rating": rating})
+        collection2.insertOne({ "product": product_id, "user": user_id, "rating": rating })
       }
       res.status(200).json({ ok: "true", message: "Ratings updated" })
     }
@@ -102,4 +104,48 @@ const rate = async (req, res) => {
   }
 }
 
-module.exports = { like, liked, productClicked, rate }
+const search = async (req, res) => {
+  const db = req.db
+  const { query } = req.body
+
+  // SEARCH USING SEARCH INDEX OF MONGODB
+  // if (query) {
+  //   const collection = db.collection('products')
+  //   const pipeline = [
+  //     {
+  //       $search: {
+  //         index: 'name_text',
+  //         text: {
+  //           query: query,
+  //           path: {
+  //             wildcard: '*'
+  //           }
+  //         }
+  //       }
+  //     }
+  //   ]
+
+  //   const searchResults = await collection.aggregate(pipeline).toArray();
+  //   res.status(200).json({ ok: "true", message: searchResults })
+  // }
+  // else {
+  //   res.status(200).json({ ok: "true", message: [] })
+  // }
+
+  const collection = db.collection('products')
+  const products = await collection.find({}).toArray();
+  const jsonData = JSON.stringify(collection.find())
+  // console.log(products)
+
+  try {
+    const flaskUrl = 'http://127.0.0.1:5001/search'
+    const requestData = { data: products }
+    const response = await axios.post(flaskUrl, {query: query})
+    console.log(response.data)
+    res.send("1")
+  } catch (err) {
+    res.status(500).json({ok: "false", message: 'An error occurred while sending data to Flask.', error: err })
+  }
+}
+
+module.exports = { like, liked, productClicked, rate, search }
