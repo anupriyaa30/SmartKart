@@ -18,8 +18,7 @@ const checkUser = (req, res, next) => {
 		})
 	}
 	else {
-		res.status(401);
-		next();
+		res.status(401).json({ok: "false", message: "Unauthorized"});
 	}
 }
 
