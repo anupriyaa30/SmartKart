@@ -5,8 +5,9 @@ import bannerImgOne from "./banner/poster1.jpg";
 import bannerImgTwo from "./banner/poster.jpg";
 import bannerImgThree from "./banner/poster2.jpg";
 import saleImgOne from "./sale/saleImgOne.jpg";
-import saleImgTwo from "./sale/saleImgTwo.jpg";
+import saleImgTwo from "./sale/pos2.jpg";
 import saleImgThree from "./sale/saleImgThree.jpg";
+import saleImgThre from "./sale/pos3.jpg";
 // ============== Products Start here ====================
 // New Arrivals
 import newArrOne from "./products/newArrival/newArrOne.webp";
@@ -42,6 +43,7 @@ export {
   saleImgOne,
   saleImgTwo,
   saleImgThree,
+  saleImgThre,
   // ===================== Products start here ============
   // New Arrivals
   newArrOne,
