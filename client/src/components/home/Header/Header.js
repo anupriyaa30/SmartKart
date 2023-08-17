@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { logo, logoLight } from "../../../assets/images";
+import { logoLight } from "../../../assets/images";
 import { sk } from "../../../assets/images";
 
 import Image from "../../designLayouts/Image";
@@ -73,7 +73,7 @@ const Header = () => {
                 >
                   <div className="w-full h-full bg-primeColor p-6">
                     <img
-                      className="w-30 mb-6"
+                      className="w-20 mb-6"
                       src={logoLight}
                       alt="logoLight"
                     />

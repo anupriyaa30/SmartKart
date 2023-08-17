@@ -1,6 +1,6 @@
 import logo from "./orebiLogo.png";
 import sk from "./sk.png";
-import logoLight from "./logoLight.png";
+import logoLight from "./skw.png";
 import bannerImgOne from "./banner/poster1.jpg";
 import bannerImgTwo from "./banner/poster.jpg";
 import bannerImgThree from "./banner/poster2.jpg";
