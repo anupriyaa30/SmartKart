@@ -39,27 +39,6 @@ const Product = (props) => {
           <ul className="w-full h-full flex flex-col items-end justify-center gap-2 font-titleFont px-2 border-l border-r">
            
             <li
-              onClick={() =>
-                dispatch(
-                  addToCart({
-                    _id: props._id,
-                    name: props.productName,
-                    quantity: 1,
-                    image: props.img,
-                    badge: props.badge,
-                    price: props.price,
-                    colors: props.color,
-                  })
-                )
-              }
-              className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full"
-            >
-              Add to Cart
-              <span>
-                <FaShoppingCart />
-              </span>
-            </li>
-            <li
               onClick={handleProductDetails}
               className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full"
             >
