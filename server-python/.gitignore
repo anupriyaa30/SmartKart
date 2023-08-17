@@ -1,0 +1,6 @@
+/Products_100
+/Products_300
+mergeCSV.py
+*.csv
+*.ipynb
+.env

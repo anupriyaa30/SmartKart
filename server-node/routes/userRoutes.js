@@ -8,6 +8,6 @@ router.post('/like', checkUser, like)
 router.post('/liked', checkUser, liked)
 router.post('/productClicked', checkUser, productClicked)
 router.post('/rate', checkUser, rate)
-router.post('/search', search)
+router.get('/search', search)
 
 module.exports = router;

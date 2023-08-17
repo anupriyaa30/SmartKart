@@ -1,11 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-  createRoutesFromElements,
-  Route,
-  ScrollRestoration,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, createRoutesFromElements, Route, ScrollRestoration, } from "react-router-dom";
 import Footer from "./components/home/Footer/Footer";
 import FooterBottom from "./components/home/Footer/FooterBottom";
 import Header from "./components/home/Header/Header";
@@ -22,6 +15,12 @@ import Offer from "./pages/Offer/Offer";
 import Payment from "./pages/payment/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
+import Search from "./Search";
+import { useEffect, useState } from "react";
+import url from './urls.json'
+import { useCookies } from 'react-cookie';
+
+const server = url.python_server
 
 const Layout = () => {
   return (
@@ -54,6 +53,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/signin" element={<SignIn />}></Route>
+      <Route path="/search" element={<Search />}></Route>
     </Route>
   )
 );
