@@ -3,6 +3,9 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { logoLight } from "../../assets/images";
 
+import url from '../../urls.json'
+const server = url.node_server
+
 const SignIn = () => {
   // ============= Initial State Start here =============
   const [email, setEmail] = useState("");
@@ -24,7 +27,7 @@ const SignIn = () => {
     setErrPassword("");
   };
   // ============= Event Handler End here ===============
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -36,9 +39,25 @@ const SignIn = () => {
     }
     // ============== Getting the value ==============
     if (email && password) {
-      setSuccessMsg(
-        `Hello dear, Thank you for your attempt. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
-      );
+      // setSuccessMsg(
+      //   `Hello dear, Thank you for your attempt. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
+      // );
+      let response = await fetch(`${server}/login`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify({email: email, password: password}),
+      })
+      response = await response.json()
+      if (response.ok) {
+        window.location.href = '/'
+      }
+      else {
+        alert(response.message)
+        window.location.reload()
+      }
       setEmail("");
       setPassword("");
     }
@@ -181,14 +200,14 @@ const SignIn = () => {
                 >
                   Sign In
                 </button>
-                <p className="text-sm text-center font-titleFont font-medium">
+                {/* <p className="text-sm text-center font-titleFont font-medium">
                   Don't have an Account?{" "}
                   <Link to="/signup">
                     <span className="hover:text-blue-600 duration-300">
                       Sign up
                     </span>
                   </Link>
-                </p>
+                </p> */}
               </div>
             </div>
           </form>
