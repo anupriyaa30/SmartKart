@@ -81,11 +81,10 @@ const SignIn = () => {
             </span>
             <p className="text-base text-gray-300">
               <span className="text-white font-semibold font-titleFont">
-                Get started fast with OREBI
+                Get started fast with SmartKart
               </span>
               <br />
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab omnis
-              nisi dolor recusandae consectetur!
+              SmartKart offers buyers a seamless online shopping experience with user-friendly navigation, diverse products, and personalized recommendations.
             </p>
           </div>
           <div className="w-[300px] flex items-start gap-3">
@@ -94,30 +93,18 @@ const SignIn = () => {
             </span>
             <p className="text-base text-gray-300">
               <span className="text-white font-semibold font-titleFont">
-                Access all OREBI services
+                Access all SmartKart services
               </span>
               <br />
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab omnis
-              nisi dolor recusandae consectetur!
+              Gain complete access to the full range of SmartKart services for comprehensive and efficient utilization.
+              Seamlessly explore and leverage the entirety of SmartKart's service offerings to optimize your online shopping and selling experiences.
             </p>
           </div>
-          <div className="w-[300px] flex items-start gap-3">
-            <span className="text-green-500 mt-1">
-              <BsCheckCircleFill />
-            </span>
-            <p className="text-base text-gray-300">
-              <span className="text-white font-semibold font-titleFont">
-                Trusted by online Shoppers
-              </span>
-              <br />
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab omnis
-              nisi dolor recusandae consectetur!
-            </p>
-          </div>
+          
           <div className="flex items-center justify-between mt-10">
             <Link to="/">
               <p className="text-sm font-titleFont font-semibold text-gray-300 hover:text-white cursor-pointer duration-300">
-                © OREBI
+                © SmartKart
               </p>
             </Link>
             <p className="text-sm font-titleFont font-semibold text-gray-300 hover:text-white cursor-pointer duration-300">
