@@ -5,7 +5,7 @@ import bannerImgOne from "./banner/poster1.jpg";
 import bannerImgTwo from "./banner/poster.jpg";
 import bannerImgThree from "./banner/poster2.jpg";
 import saleImgOne from "./sale/saleImgOne.jpg";
-import saleImgTwo from "./sale/pos2.jpg";
+import saleImgTwo from "./sale/pos4.jpg";
 import saleImgThree from "./sale/saleImgThree.jpg";
 import saleImgThre from "./sale/pos3.jpg";
 // ============== Products Start here ====================

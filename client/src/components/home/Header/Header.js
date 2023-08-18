@@ -32,10 +32,8 @@ const Header = () => {
     <div className="w-full h-20 bg-white sticky top-0 z-50 border-b-[1px] border-b-gray-200">
       <nav className="h-full px-4 max-w-container mx-auto relative">
         <Flex className="flex items-center justify-between h-full">
-          <Link to="/">
-            <div>
-              <Image className="w-20 object-cover" imgSrc={sk} />
-            </div>
+        <Link to="/">
+            <img src={sk} alt="logoImg" className="w-28" />
           </Link>
           <div>
             {showMenu && (
@@ -73,7 +71,7 @@ const Header = () => {
                 >
                   <div className="w-full h-full bg-primeColor p-6">
                     <img
-                      className="w-20 mb-6"
+                      className="w-28 mb-6"
                       src={logoLight}
                       alt="logoLight"
                     />
