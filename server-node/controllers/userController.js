@@ -2,41 +2,42 @@ const axios = require('axios');
 
 const like = async (req, res) => {
   const db = req.db
-  const userId = res.user.data.id
+  const userId = res.user.data._id
   const { product } = req.body
   const collection = db.collection("likes")
 
   const like = await collection.findOne({ "user": userId, "product": product })
   if (!like) {
     collection.insertOne({ "user": userId, "product": product })
-    res.status(200).json({ ok: "true", message: "Liked" })
+    res.status(200).json({ ok: true, message: "Liked" })
   }
   else {
-    res.json({ ok: "false", message: "Couldn't like" })
+    await collection.deleteOne({ "user": userId, "product": product })
+    res.json({ ok: false, message: "Disliked" })
   }
 }
 
 const liked = async (req, res) => {
   const db = req.db
-  const userId = res.user.data.id
+  const userId = res.user.data._id
   const { product } = req.body
   const collection = db.collection("likes")
   const like = await collection.findOne({ "user": userId, "product": product })
 
   if (like) {
-    res.status(200).json({ ok: "true", message: "true" })
+    res.status(200).json({ ok: true })
   }
   else if (like === null || like === undefined) {
-    res.status(200).json({ ok: "true", message: "false" })
+    res.status(200).json({ ok: false })
   }
   else {
-    res.status(500).json({ ok: "false", message: "Unknown Error" })
+    res.status(500).json({ ok: false, message: "Unknown Error" })
   }
 }
 
 const productClicked = async (req, res) => {
   const db = req.db
-  const userId = res.user.data.id
+  const userId = res.user.data._id
   const { product } = req.body
   const collection = db.collection("clicks")
   const present = await collection.findOne({ "user": userId, "product": product })
@@ -46,27 +47,27 @@ const productClicked = async (req, res) => {
     await collection.updateOne({ "user": userId, "product": product }, { $set: { "count": updatedCount } })
     const done = await collection.findOne({ "user": userId, "product": product })
     if (done.count === updatedCount) {
-      res.status(200).json({ ok: "true", message: "Incremented clicks" })
+      res.status(200).json({ ok: true, message: "Incremented clicks" })
     }
     else {
-      res.status(200).json({ ok: "false", message: "Couldn't increment clicks" })
+      res.status(200).json({ ok: false, message: "Couldn't increment clicks" })
     }
   }
   else {
     await collection.insertOne({ "user": userId, "product": product, "count": 1 })
     const done = await collection.findOne({ "user": userId, "product": product })
     if (done) {
-      res.status(200).json({ ok: "true", message: "Incremented clicks" })
+      res.status(200).json({ ok: true, message: "Incremented clicks" })
     }
     else {
-      res.status(200).json({ ok: "false", message: "Couldn't increment clicks" })
+      res.status(200).json({ ok: false, message: "Couldn't increment clicks" })
     }
   }
 }
 
 const rate = async (req, res) => {
   const db = req.db
-  const user_id = res.user.data.id
+  const user_id = res.user.data._id
   const { rating, product_id } = req.body
   const collection = db.collection("products")
   const present = await collection.findOne({ "id": product_id })
@@ -93,14 +94,14 @@ const rate = async (req, res) => {
         await collection.updateOne({ "id": product_id }, { $set: { "ratings": avg_rating, "no_of_ratings": no_of_ratings + 1 } })
         collection2.insertOne({ "product": product_id, "user": user_id, "rating": rating })
       }
-      res.status(200).json({ ok: "true", message: "Ratings updated" })
+      res.status(200).json({ ok: true, message: "Ratings updated" })
     }
     catch (err) {
-      res.status(500).json({ ok: "false", message: "Couldn't update the ratings", error: err })
+      res.status(500).json({ ok: false, message: "Couldn't update the ratings", error: err })
     }
   }
   else {
-    res.status(200).json({ ok: "false", message: "Couldn't update the ratings" })
+    res.status(200).json({ ok: false, message: "Couldn't update the ratings" })
   }
 }
 
@@ -126,10 +127,10 @@ const search = async (req, res) => {
   //   ]
 
   //   const searchResults = await collection.aggregate(pipeline).toArray();
-  //   res.status(200).json({ ok: "true", message: searchResults })
+  //   res.status(200).json({ ok: true, message: searchResults })
   // }
   // else {
-  //   res.status(200).json({ ok: "true", message: [] })
+  //   res.status(200).json({ ok: true, message: [] })
   // }
 
   const collection = db.collection('products')
@@ -140,11 +141,11 @@ const search = async (req, res) => {
   try {
     const flaskUrl = 'http://127.0.0.1:5001/search'
     const requestData = { data: products }
-    const response = await axios.post(flaskUrl, {query: query})
+    const response = await axios.post(flaskUrl, { query: query })
     console.log(response.data)
     res.send("1")
   } catch (err) {
-    res.status(500).json({ok: "false", message: 'An error occurred while sending data to Flask.', error: err })
+    res.status(500).json({ ok: false, message: 'An error occurred while sending data to Flask.', error: err })
   }
 }
 

@@ -4,7 +4,7 @@ const checkUser = require('../middleware/checkUser');
 
 const router = Router();
 
-router.get('/test', test);
+router.post('/test', test);
 router.post('/login', login);
 router.get('/checkLogin', checkLogin);
 router.get('/logout', logout);

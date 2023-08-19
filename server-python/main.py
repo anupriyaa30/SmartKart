@@ -60,6 +60,7 @@ def top_products():
         j += 1
 
     response = {"message": category_wise}
+    # print(category_wise)
     return response
 
 # Preprocess function

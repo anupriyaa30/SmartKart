@@ -10,24 +10,23 @@ import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../urls.json'
+import { checkLogin } from "../../../middleware/utils";
 
 const server = url.python_server
 
 const HeaderBottom = () => {
   const [top_products, setTopProducts] = useState({})
+  const [user, setUser] = useState(null)
+  const categories = ['accessories', 'appliances', 'bags & luggage', 'beauty & health', 'car & motorbike', 'grocery & gourmet foods', 'home & kitchen', 'home, kitchen, pets', 'industrial supplies', "kids' fashion", "men's clothing", "men's shoes", 'music', 'pet supplies', 'sports & fitness', 'stores', 'toys & baby products', 'tv, audio & cameras', "women's clothing", "women's shoes"]
+
   useEffect(() => {
-    async function fetchTopProducts() {
-      let response = await fetch(`${server}/top_products`, {
-        method: "GET"
-      })
-      response = await response.json()
-      Object.keys(response.message).forEach(key => {
-        top_products[key] = response.message[key]
-        top_products[key].splice(50)
-      })
+    async function check() {
+      const res = await checkLogin()
+      setUser(res)
     }
-    fetchTopProducts()
-  }, [])
+    check();
+  }, [user])
+  
   const products = useSelector((state) => state.orebiReducer.products);
   const [show, setShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
@@ -68,13 +67,6 @@ const HeaderBottom = () => {
     }
   }
 
-  // useEffect(() => {
-  //   const filtered = paginationItems.filter((item) =>
-  //     item.productName.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  //   setFilteredProducts(filtered);
-  // }, [searchQuery]);
-
   return (
     <div className="w-full bg-[#F5F5F3] relative">
       <div className="max-w-container mx-auto">
@@ -94,13 +86,16 @@ const HeaderBottom = () => {
                 transition={{ duration: 0.5 }}
                 className="absolute top-36 z-50 bg-primeColor w-auto text-[#767676] h-auto p-4 pb-6"
               >
-                {Object.keys(top_products).map(key => (
-                  <li
-                    key={key}
-                    className="text-gray-400 px-4 py-1 border-b-[1px] border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer"
-                  >
-                    {key}
-                  </li>
+                {categories.map(key => (
+                  <Link to={`/search?category=${encodeURIComponent(key)}`}>
+                    <li
+                      key={key}
+                      name={key}
+                      className="text-gray-400 px-4 py-1 border-b-[1px] border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer"
+                    >
+                      {key}
+                    </li>
+                  </Link>
                 ))}
               </motion.ul>
             )}
@@ -157,15 +152,16 @@ const HeaderBottom = () => {
             )} */}
           </div>
           <div className="flex gap-4 mt-2 lg:mt-0 items-center pr-6 cursor-pointer relative">
-
-            <Link to="/cart">
-              <div className="relative">
-                <FaShoppingCart />
-                <span className="absolute font-titleFont top-3 -right-2 text-xs w-4 h-4 flex items-center justify-center rounded-full bg-primeColor text-white">
-                  {products.length > 0 ? products.length : 0}
-                </span>
-              </div>
-            </Link>
+            {user ?
+              <Link to="/cart">
+                <div className="relative">
+                  <FaShoppingCart />
+                  <span className="absolute font-titleFont top-3 -right-2 text-xs w-4 h-4 flex items-center justify-center rounded-full bg-primeColor text-white">
+                    {products.length > 0 ? products.length : 0}
+                  </span>
+                </div>
+              </Link>
+              : <></>}
           </div>
         </Flex>
       </div>

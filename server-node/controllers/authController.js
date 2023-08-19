@@ -10,10 +10,8 @@ const createToken = (data) => {
 }
 
 const test = (req, res) => {
-  const db = req.db
-  const coll = db.collection("products")
-  console.log(coll)
-  res.send("1");
+  console.log(req.body)
+  res.send("1")
 }
 
 const login = async (req, res) => {
@@ -26,16 +24,22 @@ const login = async (req, res) => {
   const userPresent = await collection.findOne({ "email": email })
 
   if (!userPresent) {
-    collection.insertOne({ _id: user_count + 1, email: email, password: password })
+    await collection.insertOne({ _id: user_count + 1, email: email, password: password })
     const confirmed = await collection.findOne({ "email": email })
     const result = await count.updateOne({}, { $set: { "count": user_count + 1 } })
     if (confirmed) {
-      const token = createToken({ "email": email, "_id": user_count + 1 })
-      res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, SameSite: "none" })
-      res.status(200).json({ ok: true, message: "Account created and logged in." })
+      try {
+        const token = createToken({ "email": email, "_id": user_count + 1 })
+        res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, SameSite: "none" })
+        res.status(200).json({ ok: true, message: "Account created and logged in." })
+      }
+      catch (err) {
+        console.log(err)
+        res.status(500).json({ ok: false, message: "Error while signing up", error: err })
+      }
     }
     else {
-      res.status(500).json({ ok: false, message: "Error while signing up", error: err })
+      res.status(500).json({ ok: false, message: "Error while signing up" })
     }
   }
   else {
@@ -64,7 +68,7 @@ const checkLogin = (req, res) => {
         res.status(401).json({ ok: false, message: "Error while fetching the token", error: err })
       }
       else {
-        res.status(200).json({ ok: true, message: token })
+        res.status(200).json({ ok: true, message: decodedToken })
       }
     })
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { GiReturnArrow } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -8,10 +8,18 @@ import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
+import url from '../../../urls.json'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
+const server = url.node_server
 
 const Product = (props) => {
+  const [liked, setLiked] = useState(false)
   const dispatch = useDispatch();
   const _id = props.productFullName;
+  const product_id = props.id
   const idString = (_id) => {
     return String(_id).toLowerCase().split(" ").join("");
   };
@@ -19,13 +27,78 @@ const Product = (props) => {
 
   const navigate = useNavigate();
   const productItem = props;
-  const handleProductDetails = () => {
-    navigate(`/product/${rootId}`, {
-      state: {
-        item: productItem,
+
+  const handleProductDetails = async () => {
+    let response = await fetch(`${server}/productClicked`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
       },
-    });
-  };
+      body: JSON.stringify({ product: product_id })
+    })
+    response = await response.json()
+
+    if (response.ok) {
+      navigate(`/product/${rootId}`, {
+        state: {
+          item: productItem,
+        },
+      });
+    }
+    else {
+      toast.error('Server error occurred', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000
+      })
+    }
+  }
+  const like = async () => {
+    let response = await fetch(`${server}/like`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ product: product_id })
+    })
+    response = await response.json()
+    if (response.ok) {
+      setLiked(true)
+    }
+    else {
+      setLiked(false)
+      // toast.error('Server error occurred', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   autoClose: 2000
+      // })
+    }
+  }
+  const isLiked = async () => {
+    let response = await fetch(`${server}/liked`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ product: product_id })
+    })
+    
+    // if (response.status === 401) {
+    //   setLiked(false)
+    // }
+    response = await response.json()
+    if (response.ok) {
+      setLiked(true)
+    }
+    else {
+      setLiked(false)
+    }
+  }
+  useEffect(() => {
+    isLiked()
+  }, [])
+
   return (
     <div className="w-full relative group">
       <div className="max-w-80 max-h-80 relative overflow-y-hidden ">
@@ -47,11 +120,14 @@ const Product = (props) => {
                 <MdOutlineLabelImportant />
               </span>
             </li>
-            <li className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full">
+            <li className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full" onClick={like}>
               Like
               <span>
-                <BsSuitHeartFill />
+                {liked ? <BsSuitHeartFill style={{ color: 'red' }}/> : <BsSuitHeartFill />}
               </span>
+            </li>
+            <li>
+              Product ID: {product_id}
             </li>
           </ul>
         </div>
@@ -67,6 +143,7 @@ const Product = (props) => {
           <p className="text-[#767676] text-[14px]">{props.color}</p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
