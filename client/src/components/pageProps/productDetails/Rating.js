@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 
-const Star = ({ marked, onClick }) => (
-  <span onClick={onClick} style={{ color: marked ? 'gold' : 'gray', cursor: 'pointer' }}>
+const Star = ({ marked, onClick, onMouseEnter, onMouseLeave }) => (
+  <span
+    onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+    style={{
+      color: marked ? 'gold' : 'gray',
+      cursor: 'pointer',
+      transition: 'color 0.25s ease-in-out',
+    }}
+  >
     &#9733;
   </span>
 );
@@ -33,6 +42,7 @@ const Rating = () => {
           onMouseLeave={handleMouseLeave}
         />
       ))}
+      <p>Selected rating: {rating}</p>
     </div>
   );
 };
