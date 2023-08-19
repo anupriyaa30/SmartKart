@@ -131,7 +131,7 @@ def getSimilar(product_id):
         product_names = list(X.index)
         product_ID = product_names.index(product_id)
         correlation_product_ID = correlation_matrix[product_ID]
-        Recommend = list(X.index[correlation_product_ID > 0.70])
+        Recommend = list(X.index[correlation_product_ID > 0.90])
         Recommend.remove(product_id) 
         ans = Recommend[0:9]
 
@@ -141,7 +141,6 @@ def getSimilar(product_id):
         products.drop(columns=['link'])
         products = products[products['id'].isin(ans)]
         products = products.to_dict(orient='records')
-        print(products)
         return products
     except:
         return []
@@ -151,6 +150,7 @@ def getSimilar(product_id):
 def similar():
     product_id = request.get_json()
     product_id = product_id['product']
+    print(product_id)
     return {"message": getSimilar(product_id)}
 
 if __name__ == '__main__':

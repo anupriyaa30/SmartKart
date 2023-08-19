@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const server = url.node_server
+const python_server = url.python_server
 
 const Product = (props) => {
   const [liked, setLiked] = useState(false)
@@ -42,7 +43,7 @@ const Product = (props) => {
     if (response.ok) {
       navigate(`/product/${rootId}`, {
         state: {
-          item: productItem,
+          item: productItem
         },
       });
     }
@@ -83,7 +84,7 @@ const Product = (props) => {
       },
       body: JSON.stringify({ product: product_id })
     })
-    
+
     // if (response.status === 401) {
     //   setLiked(false)
     // }
@@ -123,7 +124,7 @@ const Product = (props) => {
             <li className="text-[#767676] hover:text-primeColor text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-primeColor flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-300 w-full" onClick={like}>
               Like
               <span>
-                {liked ? <BsSuitHeartFill style={{ color: 'red' }}/> : <BsSuitHeartFill />}
+                {liked ? <BsSuitHeartFill style={{ color: 'red' }} /> : <BsSuitHeartFill />}
               </span>
             </li>
             <li>

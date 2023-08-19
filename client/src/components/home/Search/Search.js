@@ -18,8 +18,6 @@ const Search = () => {
   const query_searched = queryParams.get('query')
   const category_searched = queryParams.get('category')
 
-  console.log(category_searched)
-
   if (!query_searched && !category_searched) {
     window.location.href = '/'
   }
@@ -66,7 +64,7 @@ const Search = () => {
 
   function show1() {
     return products.map(p => {
-      return <Product
+      return p[8] !== 'nan' && <Product
         id={p[0]}
         productName={p[1].length > 20
           ? p[1].substring(0, 20) + "..."
