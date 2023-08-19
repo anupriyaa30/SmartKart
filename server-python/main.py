@@ -9,6 +9,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 from dotenv import load_dotenv
 import os
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.decomposition import TruncatedSVD
 
 load_dotenv()
 app = Flask(__name__)
@@ -113,6 +115,43 @@ def analyze_data():
         result.pop('_id', None)
     response = {"message": search_results}
     return response
+
+
+def getSimilar(product_id):
+    collection = db['clicks']
+    try:
+        clicks = pd.DataFrame(collection.find())
+        clicks.drop(columns=['_id'])
+        ratings_utility_matrix = clicks.pivot_table(values='count', index='user', columns='product', fill_value=0)
+        X = ratings_utility_matrix.T
+        X1 = X
+        SVD = TruncatedSVD(n_components=10)
+        decomposed_matrix = SVD.fit_transform(X)
+        correlation_matrix = np.corrcoef(decomposed_matrix)
+        product_names = list(X.index)
+        product_ID = product_names.index(product_id)
+        correlation_product_ID = correlation_matrix[product_ID]
+        Recommend = list(X.index[correlation_product_ID > 0.70])
+        Recommend.remove(product_id) 
+        ans = Recommend[0:9]
+
+        products = pd.DataFrame(db['products_70'].find())
+        column_order = ['id'] + [col for col in products.columns if col != 'id' and col != '_id' and col != 'Unnamed: 0']
+        products = products[column_order]
+        products.drop(columns=['link'])
+        products = products[products['id'].isin(ans)]
+        products = products.to_dict(orient='records')
+        print(products)
+        return products
+    except:
+        return []
+
+
+@app.route('/similar', methods=['POST'])
+def similar():
+    product_id = request.get_json()
+    product_id = product_id['product']
+    return {"message": getSimilar(product_id)}
 
 if __name__ == '__main__':
     app.run(port=5001)

@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import ProductInfo from "../../components/pageProps/productDetails/ProductInfo";
 import ProductsOnSale from "../../components/pageProps/productDetails/ProductsOnSale";
+import url from '../../urls.json'
+
+const server = url.python_server
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -10,6 +13,17 @@ const ProductDetails = () => {
   const [productInfo, setProductInfo] = useState([]);
 
   useEffect(() => {
+    async function similar() {
+      let response = await fetch(`${server}/similar`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({product: location.state.item.id})
+      })
+      response = await response.json()
+    }
+    similar()
     setProductInfo(location.state.item);
     setPrevLocation(location.pathname);
   }, [location, productInfo]);
