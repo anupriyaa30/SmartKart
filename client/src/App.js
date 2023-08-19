@@ -16,6 +16,7 @@ import Payment from "./pages/payment/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
 import Search from "./components/home/Search/Search";
+import Orders from "./components/home/Search/Search";
 import { useEffect, useState } from "react";
 import url from './urls.json'
 import { useCookies } from 'react-cookie';
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/signin" element={<SignIn />}></Route>
       <Route path="/search" element={<Search />}></Route>
+      <Route path="/orders" element={<Orders />}></Route>
     </Route>
   )
 );
