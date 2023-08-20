@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
@@ -10,8 +10,47 @@ import {
 } from "../../../assets/images/index";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
+import url from '../../../urls.json'
+
+const server = url.python_server
+
+const Similar = ({ data }) => {
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T1\/images\//, '');
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T2\/images\//, '');
+  return (
+    <div className="px-2">
+      <Product
+        id={data.id}
+        img={data.image}
+        productName={data.name.length > 20
+          ? data.name.substring(0, 20) + "..."
+          : data.name}
+        price={data.discount_price}
+        productFullName={data.name}
+        main_category={data.main_category}
+        sub_category={data.sub_category}
+      // color="Black"
+      // badge={false}
+      // des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+      />
+    </div>
+  )
+}
 
 const NewArrivals = () => {
+  const [products, setProducts] = useState([])
+  useEffect(() => {
+    async function get() {
+      let response = await fetch(`${server}/userLikes`, {
+        method: "GET",
+        credentials: "include"
+      })
+      response = await response.json()
+      setProducts(response.message)
+      console.log(response.message)
+    }
+    get()
+  }, [])
   const settings = {
     infinite: true,
     speed: 500,
@@ -48,63 +87,11 @@ const NewArrivals = () => {
   };
   return (
     <div className="w-full pb-16">
-      <Heading heading="New Arrivals" />
+      {products.length > 0 ? <Heading heading="You may like" /> : <></>}
       <Slider {...settings}>
-        <div className="px-2">
-          <Product
-            _id="100001"
-            img={newArrOne}
-            productName="Round Table Clock"
-            price="44.00"
-            color="Black"
-            badge={true}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
-        <div className="px-2">
-          <Product
-            _id="100002"
-            img={newArrTwo}
-            productName="Smart Watch"
-            price="250.00"
-            color="Black"
-            badge={true}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
-        <div className="px-2">
-          <Product
-            _id="100003"
-            img={newArrThree}
-            productName="cloth Basket"
-            price="80.00"
-            color="Mixed"
-            badge={true}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
-        <div className="px-2">
-          <Product
-            _id="100004"
-            img={newArrFour}
-            productName="Funny toys for babies"
-            price="60.00"
-            color="Mixed"
-            badge={false}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
-        <div className="px-2">
-          <Product
-            _id="100005"
-            img={newArrTwo}
-            productName="Funny toys for babies"
-            price="60.00"
-            color="Mixed"
-            badge={false}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
+        {products.map(p => {
+          return <Similar data={p} />
+        })}
       </Slider>
     </div>
   );

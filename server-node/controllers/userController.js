@@ -149,4 +149,34 @@ const search = async (req, res) => {
   }
 }
 
-module.exports = { like, liked, productClicked, rate, search }
+const order = async (req, res) => {
+  const db = req.db
+  const userId = res.user.data._id
+  const { product } = req.body
+  const collection = db.collection("orders")
+  const present = await collection.findOne({ "user": userId, "product": product })
+
+  if (present) {
+    const updatedCount = present.count + 1
+    await collection.updateOne({ "user": userId, "product": product }, { $set: { "count": updatedCount } })
+    const done = await collection.findOne({ "user": userId, "product": product })
+    if (done.count === updatedCount) {
+      res.status(200).json({ ok: true, message: "Ordered" })
+    }
+    else {
+      res.status(200).json({ ok: false, message: "Couldn't place order" })
+    }
+  }
+  else {
+    await collection.insertOne({ "user": userId, "product": product, "count": 1 })
+    const done = await collection.findOne({ "user": userId, "product": product })
+    if (done) {
+      res.status(200).json({ ok: true, message: "Ordered" })
+    }
+    else {
+      res.status(200).json({ ok: false, message: "Couldn't place order" })
+    }
+  }
+}
+
+module.exports = { like, liked, productClicked, rate, search, order }

@@ -1,55 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
+import Slider from "react-slick";
 import {
   bestSellerOne,
   bestSellerTwo,
   bestSellerThree,
   bestSellerFour,
 } from "../../../assets/images/index";
+import SampleNextArrow from "../NewArrivals/SampleNextArrow"
+import SamplePrevArrow from "../NewArrivals/SamplePrevArrow";
+import url from '../../../urls.json'
+
+const server = url.python_server
+
+const Similar = ({ data }) => {
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T1\/images\//, '');
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T2\/images\//, '');
+  return (
+    <div className="px-2">
+      <Product
+        id={data.id}
+        img={data.image}
+        productName={data.name.length > 20
+          ? data.name.substring(0, 20) + "..."
+          : data.name}
+        price={data.discount_price}
+        productFullName={data.name}
+        main_category={data.main_category}
+        sub_category={data.sub_category}
+      // color="Black"
+      // badge={false}
+      // des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+      />
+    </div>
+  )
+}
 
 const BestSellers = () => {
+  const [products, setProducts] = useState([])
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
+  useEffect(() => {
+    async function get() {
+      let response = await fetch(`${server}/popular`, {
+        method: "GET"
+      })
+      response = await response.json()
+      setProducts(response.message)
+    }
+    get()
+  }, [])
   return (
-    <div className="w-full pb-20">
-      <Heading heading="Our Bestsellers" />
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 xl:grid-cols-4 gap-10">
-        <Product
-          _id="1011"
-          img={bestSellerOne}
-          productName="Flower Base"
-          price="35.00"
-          color="Blank and White"
-          badge={true}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1012"
-          img={bestSellerTwo}
-          productName="New Backpack"
-          price="180.00"
-          color="Gray"
-          badge={false}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1013"
-          img={bestSellerThree}
-          productName="Household materials"
-          price="25.00"
-          color="Mixed"
-          badge={true}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-        <Product
-          _id="1014"
-          img={bestSellerFour}
-          productName="Travel Bag"
-          price="220.00"
-          color="Black"
-          badge={false}
-          des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-        />
-      </div>
+    <div className="w-full pb-16">
+      {products.length > 0 ? <Heading heading="Our Bestsellers" /> : <></>}
+      <Slider {...settings}>
+        {products.map(p => {
+          return <Similar data={p} />
+        })}
+      </Slider>
     </div>
   );
 };
