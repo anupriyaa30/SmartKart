@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
-import Rating from "./Rating";
+import Rating from '@mui/material/Rating';
 
 const ProductInfo = ({ productInfo }) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const ProductInfo = ({ productInfo }) => {
       <p className="font-medium text-lg">
         {/* <span className="font-normal">Colors:</span> {productInfo.color} */}
       </p>
-      <Rating/>
+      <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
       <button
         onClick={() =>
           dispatch(

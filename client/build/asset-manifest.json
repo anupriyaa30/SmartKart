@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.371d04fc.css",
-    "main.js": "/static/js/main.9bf5efa3.js",
-    "static/media/pos2.jpg": "/static/media/pos2.5a830f3314ccd0397890.jpg",
-    "static/media/poster2.jpg": "/static/media/poster2.e9235e643ab290d09234.jpg",
-    "static/media/poster.jpg": "/static/media/poster.ab3fc69a9762e05811f2.jpg",
-    "static/media/saleImgThree.jpg": "/static/media/saleImgThree.b840a5a70c82e13ac85f.jpg",
-    "static/media/pos3.jpg": "/static/media/pos3.f57c84b012dd4a759d9d.jpg",
-    "static/media/saleImgOne.jpg": "/static/media/saleImgOne.f3ec83750f63d5fa3b48.jpg",
-    "static/media/poster1.jpg": "/static/media/poster1.98687c08f3ecd5c8e904.jpg",
+    "main.css": "/static/css/main.9c08c58e.css",
+    "main.js": "/static/js/main.94b5e60a.js",
+    "static/media/pos4.jpg": "/static/media/pos4.688b07432a804cc9166d.jpg",
+    "static/media/poster2.jpg": "/static/media/poster2.b15dfe93d61f26158c14.jpg",
+    "static/media/saleImgThree.jpg": "/static/media/saleImgThree.c6b9810f36140f6fc689.jpg",
+    "static/media/poster.jpg": "/static/media/poster.b5b14173a45316cb28d2.jpg",
+    "static/media/saleImgOne.jpg": "/static/media/saleImgOne.d48f15cdffc526a94131.jpg",
+    "static/media/productOfTheYear.webp": "/static/media/productOfTheYear.2107d77315ce7be34534.webp",
+    "static/media/pos3.jpg": "/static/media/pos3.b1b9a4b5c9aadb8d6075.jpg",
+    "static/media/poster1.jpg": "/static/media/poster1.d63abd9613b42ae76ce6.jpg",
     "static/media/newArrThree.webp": "/static/media/newArrThree.137dcefaee781098fd8a.webp",
     "static/media/payment.png": "/static/media/payment.3e00cc601c9e7fc1e7d3.png",
-    "static/media/productOfTheYear.webp": "/static/media/productOfTheYear.2c30f10b51873bab4630.webp",
     "static/media/bestSellerThree.webp": "/static/media/bestSellerThree.8caffcd1cd1c67b4a340.webp",
     "static/media/newArrFour.webp": "/static/media/newArrFour.b8a5fda6839f2f0b1eaa.webp",
     "static/media/bestSellerTwo.webp": "/static/media/bestSellerTwo.c2641a76c189fcc71670.webp",
     "static/media/bestSellerFour.webp": "/static/media/bestSellerFour.0b34fdc5232f2dcf997b.webp",
     "static/media/bestSellerOne.webp": "/static/media/bestSellerOne.988208d74cc332fccc11.webp",
+    "static/media/skw.png": "/static/media/skw.57db8d154113b0ce95f3.png",
     "static/media/sk.png": "/static/media/sk.26b9d0fdb3fa34194c68.png",
     "static/media/emptyCart.png": "/static/media/emptyCart.230e4848b62fb3cab325.png",
     "static/media/spfThree.webp": "/static/media/spfThree.226da6ea085a91db0352.webp",
@@ -26,11 +27,11 @@
     "static/media/newArrTwo.webp": "/static/media/newArrTwo.bdc7d9372116bdf40cc4.webp",
     "static/media/newArrOne.webp": "/static/media/newArrOne.5982a995e5c312914fe6.webp",
     "index.html": "/index.html",
-    "main.371d04fc.css.map": "/static/css/main.371d04fc.css.map",
-    "main.9bf5efa3.js.map": "/static/js/main.9bf5efa3.js.map"
+    "main.9c08c58e.css.map": "/static/css/main.9c08c58e.css.map",
+    "main.94b5e60a.js.map": "/static/js/main.94b5e60a.js.map"
   },
   "entrypoints": [
-    "static/css/main.371d04fc.css",
-    "static/js/main.9bf5efa3.js"
+    "static/css/main.9c08c58e.css",
+    "static/js/main.94b5e60a.js"
   ]
 }
