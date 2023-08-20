@@ -16,7 +16,7 @@ import Payment from "./pages/payment/Payment";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
 import Search from "./components/home/Search/Search";
-import Orders from "./components/home/Search/Search";
+import Orders from './components/home/Orders/Orders'
 import { useEffect, useState } from "react";
 import url from './urls.json'
 import { useCookies } from 'react-cookie';

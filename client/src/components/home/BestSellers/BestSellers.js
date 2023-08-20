@@ -11,12 +11,13 @@ import {
 import SampleNextArrow from "../NewArrivals/SampleNextArrow"
 import SamplePrevArrow from "../NewArrivals/SamplePrevArrow";
 import url from '../../../urls.json'
+import { checkLogin } from "../../../middleware/utils";
 
 const server = url.python_server
 
 const Similar = ({ data }) => {
-  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T1\/images\//, '');
-  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T2\/images\//, '');
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T1\/images\//, '')
+  data.image = data.image.replace(/W\/IMAGERENDERING_521856-T2\/images\//, '')
   return (
     <div className="px-2">
       <Product
@@ -29,6 +30,7 @@ const Similar = ({ data }) => {
         productFullName={data.name}
         main_category={data.main_category}
         sub_category={data.sub_category}
+        ratings={data.ratings}
       // color="Black"
       // badge={false}
       // des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
@@ -39,6 +41,15 @@ const Similar = ({ data }) => {
 
 const BestSellers = () => {
   const [products, setProducts] = useState([])
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    async function check() {
+      const res = await checkLogin()
+      setUser(res)
+    }
+    check();
+  }, [])
   const settings = {
     infinite: true,
     speed: 500,
@@ -81,16 +92,26 @@ const BestSellers = () => {
       response = await response.json()
       setProducts(response.message)
     }
+    async function check() {
+      const res = await checkLogin()
+      setUser(res)
+    }
+
+    check();
     get()
   }, [])
   return (
     <div className="w-full pb-16">
-      {products.length > 0 ? <Heading heading="Our Bestsellers" /> : <></>}
-      <Slider {...settings}>
-        {products.map(p => {
-          return <Similar data={p} />
-        })}
-      </Slider>
+      {user && products.length > 0 ?
+        <>
+          <Heading heading="Our Bestsellers" />
+          <Slider {...settings}>
+            {products.map(p => {
+              return <Similar data={p} />
+            })}
+          </Slider>
+        </>
+        : <></>}
     </div>
   );
 };

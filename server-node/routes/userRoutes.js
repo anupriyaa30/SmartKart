@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { like, liked, productClicked, rate, search, order } = require('../controllers/userController');
+const { like, liked, productClicked, rate, search, order, myOrders } = require('../controllers/userController');
 const { checkUser } = require('../middleware/checkUser');
 
 const router = Router();

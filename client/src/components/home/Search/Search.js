@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../Footer/Footer'
 import FooterBottom from '../Footer/FooterBottom'
-import BestSellers from '../BestSellers/BestSellers1'
 import Header from '../Header/Header'
 import HeaderBottom from '../Header/HeaderBottom'
 import url from '../../../urls.json'
@@ -74,6 +73,7 @@ const Search = () => {
         price={p[8]}
         main_category={p[2]}
         sub_category={p[3]}
+        ratings={p[6]}
       />
     })
   }
@@ -90,6 +90,7 @@ const Search = () => {
         price={p.discount_price}
         main_category={p.main_category}
         sub_category={p.sub_category}
+        ratings={p.ratings}
       />
     })
   }

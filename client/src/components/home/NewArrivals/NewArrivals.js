@@ -11,6 +11,7 @@ import {
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
 import url from '../../../urls.json'
+import { checkLogin } from "../../../middleware/utils";
 
 const server = url.python_server
 
@@ -29,6 +30,7 @@ const Similar = ({ data }) => {
         productFullName={data.name}
         main_category={data.main_category}
         sub_category={data.sub_category}
+        ratings={data.ratings}
       // color="Black"
       // badge={false}
       // des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
@@ -39,6 +41,12 @@ const Similar = ({ data }) => {
 
 const NewArrivals = () => {
   const [products, setProducts] = useState([])
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    
+  }, [])
+
   useEffect(() => {
     async function get() {
       let response = await fetch(`${server}/userLikes`, {
@@ -49,6 +57,12 @@ const NewArrivals = () => {
       setProducts(response.message)
       console.log(response.message)
     }
+    async function check() {
+      const res = await checkLogin()
+      setUser(res)
+    }
+
+    check();
     get()
   }, [])
   const settings = {
@@ -87,12 +101,16 @@ const NewArrivals = () => {
   };
   return (
     <div className="w-full pb-16">
-      {products.length > 0 ? <Heading heading="You may like" /> : <></>}
-      <Slider {...settings}>
-        {products.map(p => {
-          return <Similar data={p} />
-        })}
-      </Slider>
+      {user && products.length > 0 ?
+        <>
+          <Heading heading="You may like" />
+          <Slider {...settings}>
+            {products.map(p => {
+              return <Similar data={p} />
+            })}
+          </Slider>
+        </>
+        : <></>}
     </div>
   );
 };

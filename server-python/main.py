@@ -99,6 +99,20 @@ def getLiked(user_id):
     df = df.to_dict(orient='records')
     return df
 
+
+def getOrders(userId):
+    db = client["SmartDB"]
+    col1 = db["orders"]
+    col2 = db['products_70']
+    df = pd.DataFrame(col1.find({'user': userId})).drop(columns=['_id'])
+    df2 = pd.DataFrame(col2.find())
+    merge = pd.merge(df2, df, left_on=['id'], right_on=['product'])
+    column_order = ['id'] + [col for col in df2.columns if col != 'id' and col != '_id' and col != 'Unnamed: 0']
+    merge = merge[column_order].drop(columns=['link'])
+
+    merge = merge.to_dict(orient='records')
+    return merge
+
 @app.route('/top_products', methods=['GET'])
 def top_products():
     collection = db['products_70']
@@ -191,7 +205,6 @@ def analyze_data():
 def similar():
     product_id = request.get_json()
     product_id = product_id['product']
-    print(product_id)
     return {"message": getSimilar(product_id)}
 
 
@@ -242,6 +255,25 @@ def popular():
     sorted_final = sorted_final.drop(columns=['link'])[:50]
     sorted_final = sorted_final.to_dict(orient='records')
     return {"message": sorted_final}
+
+
+@app.route('/myOrders', methods=['GET'])
+def myOrders():
+    jwt_token = request.cookies.get('login')
+    
+    if jwt_token:
+        try:
+            decoded_token = jwt.decode(jwt_token, SECRET_KEY, algorithms=['HS256'])
+            user = decoded_token['data']['_id']
+            result = getOrders(user)
+            return {"message": result}
+            
+        except jwt.ExpiredSignatureError:
+            return jsonify({'error': 'Token has expired'}), 401
+        except jwt.DecodeError:
+            return jsonify({'error': 'Token is invalid'}), 401
+    else:
+        return jsonify({'error': 'No token provided'}), 401
 
 if __name__ == '__main__':
     app.run(port=5001)

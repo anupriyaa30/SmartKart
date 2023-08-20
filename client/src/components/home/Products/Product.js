@@ -22,11 +22,11 @@ const Product = (props) => {
   const _id = props.productFullName;
   const product_id = props.id
   const idString = (_id) => {
-    return String(_id).toLowerCase().split(" ").join("");
-  };
-  const rootId = idString(_id);
+    return String(_id).toLowerCase().split(" ").join("")
+  }
+  const rootId = idString(_id)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const productItem = props;
 
   const handleProductDetails = async () => {

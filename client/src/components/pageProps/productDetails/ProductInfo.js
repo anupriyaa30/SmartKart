@@ -2,9 +2,27 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
 import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import url from '../../../urls.json'
+
+const server = url.node_server
 
 const ProductInfo = ({ productInfo }) => {
-  const dispatch = useDispatch();
+  console.log(productInfo.ratings)
+  const dispatch = useDispatch()
+  const order = async () => {
+    let response = await fetch(`${server}/order`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({product: productInfo.id})
+    })
+    response = await response.json()
+    alert(response.message)
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <h2 className="text-4xl font-semibold">{productInfo.productFullName}</h2>
@@ -14,7 +32,13 @@ const ProductInfo = ({ productInfo }) => {
       <p className="font-medium text-lg">
         {/* <span className="font-normal">Colors:</span> {productInfo.color} */}
       </p>
-      <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
+      <button
+        onClick={order}
+        className="w-full py-4 bg-primeColor hover:bg-black duration-300 text-white text-lg font-titleFont"
+      >
+        Buy Now
+      </button>
+
       <button
         onClick={() =>
           dispatch(
@@ -23,9 +47,9 @@ const ProductInfo = ({ productInfo }) => {
               name: productInfo.productName,
               quantity: 1,
               image: productInfo.img,
-              badge: productInfo.badge,
-              price: productInfo.price,
-              colors: productInfo.color,
+              // badge: productInfo.badge,
+              price: productInfo.price
+              // colors: productInfo.color,
             })
           )
         }

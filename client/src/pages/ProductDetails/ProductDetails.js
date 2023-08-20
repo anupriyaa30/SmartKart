@@ -24,7 +24,6 @@ const ProductDetails = () => {
     })
     response = await response.json()
     setSimilar(response.message)
-    console.log(similars)
   }
 
   useEffect(() => {

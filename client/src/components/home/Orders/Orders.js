@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../Footer/Footer'
 import FooterBottom from '../Footer/FooterBottom'
-import BestSellers from '../BestSellers/BestSellers1'
 import Header from '../Header/Header'
 import HeaderBottom from '../Header/HeaderBottom'
 import url from '../../../urls.json'
@@ -15,14 +14,11 @@ const Orders = () => {
   const queryParams = new URLSearchParams(location.search)
   const query_searched = queryParams.get('query')
 
-  if (!query_searched) {
-    window.location.href = '/'
-  }
-
   useEffect(() => {
     async function loadProducts() {
-      const response = await fetch(`${server}/search?query=${query_searched}`, {
-        method: "GET"
+      const response = await fetch(`${server}/myOrders`, {
+        method: "GET",
+        credentials: "include"
       })
       const fetched_products = await response.json()
       const filteredProducts = []
@@ -31,10 +27,10 @@ const Orders = () => {
         p.image = p.image.replace(/W\/IMAGERENDERING_521856-T2\/images\//, '')
       })
       setProducts(fetched_products.message)
-      console.log(fetched_products.message.length)
+      console.log(fetched_products.message)
     }
 
-    if (query_searched) loadProducts()
+    loadProducts()
   }, [])
 
   // function show() {
@@ -63,7 +59,7 @@ const Orders = () => {
           {products.map(p => {
             console.log(p);
             return <Product
-            key={p.id}
+            id={p.id}
             productName={p.name.length > 20
               ? p.name.substring(0, 20) + "..."
               : p.name} 

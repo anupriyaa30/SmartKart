@@ -19,8 +19,14 @@ const Similar = ({ data }) => {
       <Product
         id={data.id}
         img={data.image}
-        productName={data.name}
+        productName={data.name.length > 20
+          ? data.name.substring(0, 20) + "..."
+          : data.name}
+        productFullName={data.name}
         price={data.discount_price}
+        ratings={data.ratings}
+        main_category={data.main_category}
+        sub_category={data.sub_category}
       // color="Black"
       // badge={false}
       // des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
@@ -30,7 +36,6 @@ const Similar = ({ data }) => {
 }
 
 const NewArrivals = ({ products }) => {
-  console.log(products)
   const settings = {
     infinite: true,
     speed: 500,
