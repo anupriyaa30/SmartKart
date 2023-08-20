@@ -57,7 +57,6 @@ const Orders = () => {
         {products.length !== 0 ? <>Fetched {products.length} products<br/><br/> </>: <></>}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 xl:grid-cols-4 gap-10">
           {products.map(p => {
-            console.log(p);
             return <Product
             id={p.id}
             productName={p.name.length > 20
@@ -68,6 +67,7 @@ const Orders = () => {
             price={p.discount_price}
             main_category = {p.main_category}
             sub_category = {p.sub_category}
+            ratings = {p.ratings}
             />
           })}
         </div>

@@ -44,10 +44,6 @@ const NewArrivals = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    
-  }, [])
-
-  useEffect(() => {
     async function get() {
       let response = await fetch(`${server}/userLikes`, {
         method: "GET",

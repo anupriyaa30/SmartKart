@@ -1,14 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+// import Rating from '@mui/material/Rating';
+import Rating from "./Rating";
 import url from '../../../urls.json'
 
 const server = url.node_server
 
 const ProductInfo = ({ productInfo }) => {
-  console.log(productInfo.ratings)
   const dispatch = useDispatch()
   const order = async () => {
     let response = await fetch(`${server}/order`, {
@@ -17,7 +16,7 @@ const ProductInfo = ({ productInfo }) => {
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify({product: productInfo.id})
+      body: JSON.stringify({ product: productInfo.id })
     })
     response = await response.json()
     alert(response.message)
@@ -32,13 +31,13 @@ const ProductInfo = ({ productInfo }) => {
       <p className="font-medium text-lg">
         {/* <span className="font-normal">Colors:</span> {productInfo.color} */}
       </p>
+      <Rating rate={productInfo.ratings} />
       <button
         onClick={order}
         className="w-full py-4 bg-primeColor hover:bg-black duration-300 text-white text-lg font-titleFont"
       >
         Buy Now
       </button>
-
       <button
         onClick={() =>
           dispatch(
