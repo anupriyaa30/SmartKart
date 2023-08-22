@@ -22,6 +22,7 @@ pip install -r requirements.txt
 ```
 
 Step 4: Create 3 different instances for your terminal and open them in the root folder of the project
+
   -> Terminal 1:
   ```bash
   cd client
