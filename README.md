@@ -1,6 +1,6 @@
 # SmartKart
 
-### For Developer
+### For Developers
 
 Step 1: Clone the repository
 ```bash
@@ -29,6 +29,7 @@ Step 4: Create 3 different instances for your terminal and open them in the root
   npm start
   ```
   Frontend running on port 3000
+  
 
   -> Terminal 2:
   ```bash
@@ -36,6 +37,7 @@ Step 4: Create 3 different instances for your terminal and open them in the root
   npm start
   ```
   Express backend running on port 5000
+  
 
   -> Terminal 3:
   ```bash
