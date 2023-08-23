@@ -18,14 +18,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Moving into client app
-        run: cd client
+      - name: Moving into client app && Install dependencies
+        run: cd client && npm install
         
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the React app
-        run: npm run build
+      - name: Moving into client app && Build the React app
+        run: cd client && npm run build
 
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
