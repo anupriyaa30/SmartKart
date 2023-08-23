@@ -22,7 +22,7 @@ jobs:
         run: cd client && npm install
         
       - name: Moving into client app && Build the React app
-        run: cd client && npm run build
+        run: cd client && npm run build --no-warnings
 
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
