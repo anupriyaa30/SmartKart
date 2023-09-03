@@ -2,11 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
 from pymongo import MongoClient
-import json
 import re
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-import pickle
 from dotenv import load_dotenv
 import os
 from sklearn.metrics.pairwise import cosine_similarity
