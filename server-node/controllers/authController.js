@@ -34,7 +34,7 @@ const login = async (req, res) => {
         res.cookie('login', token, {
           httpOnly: true,
           secure: true,
-          sameSite: 'none',
+          SameSite: 'none',
           maxAge: age * 1000,
           domain: 'smartkart.vercel.app',
         });
@@ -60,7 +60,7 @@ const login = async (req, res) => {
       res.cookie('login', token, {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',
+        SameSite: 'none',
         maxAge: age * 1000,
         domain: 'smartkart.vercel.app',
       });
@@ -98,7 +98,7 @@ const logout = (req, res) => {
     res.cookie('login', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      SameSite: 'none',
       maxAge: age * 1000,
       domain: 'smartkart.vercel.app',
     });
