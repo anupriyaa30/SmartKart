@@ -19,7 +19,8 @@ SECRET_KEY = os.environ.get('ACCESS_TOKEN_SECRET')
 
 app = Flask(__name__)
 allowed_origins = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://smartkart.vercel.app"
 ]
 CORS(app, resources={r"/*": {"origins": allowed_origins}}, supports_credentials=True)
 
@@ -274,6 +275,11 @@ def myOrders():
             return jsonify({'error': 'Token is invalid'}), 401
     else:
         return jsonify({'error': 'No token provided'}), 401
+    
+
+@app.route('/', methods=['GET'])
+def test():
+    return 'Flask server ready'
 
 if __name__ == '__main__':
     app.run(port=5001)
