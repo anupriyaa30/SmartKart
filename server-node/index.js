@@ -18,7 +18,6 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-
 connectToDatabase()
   .then((db) => {
     app.use((req, res, next) => {
@@ -27,8 +26,7 @@ connectToDatabase()
     });
     app.use(authRoutes);
     app.use(userRoutes);
-
-    app.get('/test', (req, res) => {
+    app.get('/', (req, res) => {
       res.send("Node server ready")
     })
 
