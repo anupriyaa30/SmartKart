@@ -30,11 +30,11 @@ const login = async (req, res) => {
     if (confirmed) {
       try {
         const token = createToken({ "email": email, "_id": user_count + 1 })
-        // res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, SameSite: "none" })
+        // res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, sameSite: "none" })
         res.cookie('login', token, {
           httpOnly: true,
           secure: true,
-          SameSite: 'none',
+          sameSite: 'none',
           maxAge: age * 1000,
           domain: '.vercel.app',
         });
@@ -56,11 +56,11 @@ const login = async (req, res) => {
     const saved_password = saved_user['password']
     if (password === saved_password) {
       const token = createToken({ "email": email, "_id": id })
-      // res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, SameSite: "none" })
+      // res.cookie('login', token, { httpOnly: true, maxAge: age * 1000, sameSite: "none" })
       res.cookie('login', token, {
         httpOnly: true,
         secure: true,
-        SameSite: 'none',
+        sameSite: 'none',
         maxAge: age * 1000,
         domain: '.vercel.app',
       });
@@ -94,11 +94,11 @@ const checkLogin = (req, res) => {
 const logout = (req, res) => {
   const token = req.cookies.login;
   try {
-    // res.cookie('login', token, { httpOnly: true, maxAge: 1, SameSite: "none" })
+    // res.cookie('login', token, { httpOnly: true, maxAge: 1, sameSite: "none" })
     res.cookie('login', token, {
       httpOnly: true,
       secure: true,
-      SameSite: 'none',
+      sameSite: 'none',
       maxAge: age * 1000,
       domain: '.vercel.app',
     });
