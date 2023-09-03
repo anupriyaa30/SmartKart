@@ -36,7 +36,7 @@ const login = async (req, res) => {
           secure: true,
           SameSite: 'none',
           maxAge: age * 1000,
-          domain: 'smartkart.vercel.app',
+          domain: '.vercel.app',
         });
         res.status(200).json({ ok: true, message: "Account created and logged in." })
       }
@@ -62,7 +62,7 @@ const login = async (req, res) => {
         secure: true,
         SameSite: 'none',
         maxAge: age * 1000,
-        domain: 'smartkart.vercel.app',
+        domain: '.vercel.app',
       });
       res.status(200).json({ ok: true, message: "Logged In" })
     }
@@ -100,7 +100,7 @@ const logout = (req, res) => {
       secure: true,
       SameSite: 'none',
       maxAge: age * 1000,
-      domain: 'smartkart.vercel.app',
+      domain: '.vercel.app',
     });
     res.status(200).json({ ok: true, message: "Logged out" })
   }
