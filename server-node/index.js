@@ -9,7 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const corsOptions = {
-	origin: ["http://localhost:3000"],
+	origin: ["http://localhost:3000", "https://smartkart.vercel.app"],
 	credentials: true,
 };
 const app = express();
@@ -28,7 +28,7 @@ connectToDatabase()
     app.use(authRoutes);
     app.use(userRoutes);
 
-    app.get('/', (req, res) => {
+    app.get('/test', (req, res) => {
       res.send("Node server ready")
     })
 
