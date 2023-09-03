@@ -1,4 +1,4 @@
 {
-  "node_server": "http://localhost:5000",
-  "python_server": "http://localhost:5001"
+  "node_server": "https://smartkart-node.vercel.app/",
+  "python_server": "https://smartkart-python.onrender.com"
 }
