@@ -8,7 +8,7 @@
 
 Step 1: Clone the repository
 ```bash
-git clone https://github.com/Piyush-onGIT/smartkart
+git clone https://github.com/anupriyaa30/SmartKart
 ```
 
 Step 2: Install all dependencies for frontend
